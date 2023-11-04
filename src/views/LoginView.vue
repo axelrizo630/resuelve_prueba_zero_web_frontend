@@ -2,18 +2,23 @@
 import { ref } from "vue";
 import { login } from "@/services/our-backend/login.service";
 import { register } from "@/services/our-backend/register.service";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const username = ref("");
 const password = ref("");
 
 const handleLoginButton = async () => {
   const data = await login(username.value, password.value);
-  console.log("handleLoginButton  data", data);
+  localStorage.setItem("token", data.token);
+  router.push({ name: "Home" });
 };
 
 const handleRegisterButton = async () => {
   const data = await register(username.value, password.value);
-  console.log("handleRegisterButton  data", data);
+  localStorage.setItem("token", data.token);
+  router.push({ name: "Home" });
 };
 </script>
 <template>
