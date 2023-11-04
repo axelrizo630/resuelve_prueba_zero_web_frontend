@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  vue_app:
+    container_name: resuelve_prueba_zero_vue_frontend
+    build: .
+    ports:
+      - "4000:4000"

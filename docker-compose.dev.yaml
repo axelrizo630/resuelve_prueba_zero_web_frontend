@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  vue_app:
+    container_name: resuelve_prueba_zero_vue_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4000:4000"

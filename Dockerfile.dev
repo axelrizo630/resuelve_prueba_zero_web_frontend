@@ -1,0 +1,8 @@
+# Base image
+FROM node:21-alpine
+
+# Create app directory
+WORKDIR /app
+
+# Expose port 3000
+CMD ["npm", "run", "dev"]
