@@ -46,7 +46,7 @@ const logout = () => {
 
   <v-main>
     <v-container fluid>
-      <router-view-view></router-view-view>
+      <router-view></router-view>
     </v-container>
   </v-main>
 </template>
