@@ -7,8 +7,11 @@ const router = useRouter();
 const drawer = ref(false);
 const title = "My App";
 const items = [
-  { title: "Compound Interest Calculation", route: { name: "" } },
-  { title: "Chuck Norris Jokes", route: { name: "" } },
+  { title: "Chuck Norris Jokes", route: { name: "ChuckNorrisJokes" } },
+  {
+    title: "Compound Interest Calculation",
+    route: { name: "CompoundInterestCalculation" },
+  },
 ];
 
 const navigate = (route: RouteLocationRaw) => {

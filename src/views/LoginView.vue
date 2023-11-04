@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { login } from "@/services/our-backend/login.service";
 import { register } from "@/services/our-backend/register.service";
 import { useRouter } from "vue-router";
@@ -12,14 +12,20 @@ const password = ref("");
 const handleLoginButton = async () => {
   const data = await login(username.value, password.value);
   localStorage.setItem("token", data.token);
-  router.push({ name: "Home" });
+  router.push({ name: "ChuckNorrisJokes" });
 };
 
 const handleRegisterButton = async () => {
   const data = await register(username.value, password.value);
   localStorage.setItem("token", data.token);
-  router.push({ name: "Home" });
+  router.push({ name: "ChuckNorrisJokes" });
 };
+
+onMounted(() => {
+  if (localStorage.getItem("token")) {
+    router.push({ name: "ChuckNorrisJokes" });
+  }
+});
 </script>
 <template>
   <v-container fluid>
