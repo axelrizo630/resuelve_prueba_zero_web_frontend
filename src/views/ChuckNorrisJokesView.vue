@@ -1,5 +1,41 @@
+<script setup lang="ts">
+import { onMounted, ref, onBeforeUnmount } from "vue";
+import { getMyApiKey } from "@/services/our-backend/get-my-api-key.service.ts";
+import { getMyRemainingRequests } from "@/services/our-backend/get-my-remaining-requests.service.ts";
+
+let refetchInterval: NodeJS.Timeout | null = null;
+
+const apiKey = ref<string | null>(null);
+const requestRemaining = ref<number | null>(null);
+
+const refetchRequestRemaining = async () => {
+  const data = await getMyRemainingRequests();
+  requestRemaining.value = data ?? null;
+};
+
+onMounted(async () => {
+  const data = await getMyApiKey();
+  apiKey.value = data?.apiKey || null;
+
+  refetchRequestRemaining();
+  refetchInterval = setInterval(() => {
+    refetchRequestRemaining();
+  }, 5000);
+});
+
+onBeforeUnmount(() => {
+  refetchInterval && clearInterval(refetchInterval);
+});
+</script>
+
 <template>
-  <div>
-    <h1>About</h1>
-  </div>
+  <h1>Chuck Norris Jokes API</h1>
+
+  <h2 v-if="apiKey">Your API Key: {{ apiKey }}</h2>
+  <h2 v-else>Something happened with your API Key</h2>
+  <template v-if="requestRemaining !== null">
+    <p>
+      You have <b>{{ requestRemaining }}</b> requests remaining.
+    </p>
+  </template>
 </template>
