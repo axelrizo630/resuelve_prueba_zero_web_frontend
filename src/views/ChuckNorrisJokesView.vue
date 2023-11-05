@@ -2,6 +2,9 @@
 import { onMounted, ref, onBeforeUnmount } from "vue";
 import { getMyApiKey } from "@/services/our-backend/get-my-api-key.service.ts";
 import { getMyRemainingRequests } from "@/services/our-backend/get-my-remaining-requests.service.ts";
+import ChuckNorrisJokesFetchRandomDemo from "@/components/ChuckNorrisJokesFetchRandomDemo.vue";
+import ChuckNorrisJokesFetchRandomByCategoryDemo from "@/components/ChuckNorrisJokesFetchRandomByCategoryDemo.vue";
+import ChuckNorrisJokesFetchRandomByQueryDemo from "@/components/ChuckNorrisJokesFetchRandomByQueryDemo.vue";
 
 let refetchInterval: NodeJS.Timeout | null = null;
 
@@ -38,4 +41,27 @@ onBeforeUnmount(() => {
       You have <b>{{ requestRemaining }}</b> requests remaining.
     </p>
   </template>
+  <v-container>
+    <v-row>
+      <v-col>
+        <ChuckNorrisJokesFetchRandomDemo v-if="apiKey" :api-key="apiKey" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <ChuckNorrisJokesFetchRandomByCategoryDemo
+          v-if="apiKey"
+          :api-key="apiKey"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <ChuckNorrisJokesFetchRandomByQueryDemo
+          v-if="apiKey"
+          :api-key="apiKey"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
