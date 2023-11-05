@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, inject } from "vue";
+import { useRouter } from "vue-router";
 import { login } from "@/services/our-backend/login.service";
 import { register } from "@/services/our-backend/register.service";
-import { useRouter } from "vue-router";
+
+const { showSnackbar } = inject("snackBarProvider") as {
+  showSnackbar: (messageText: string) => void;
+};
+// const showSnackbar = (string: string) => {};
 
 const router = useRouter();
 
@@ -10,15 +15,23 @@ const username = ref("");
 const password = ref("");
 
 const handleLoginButton = async () => {
-  const data = await login(username.value, password.value);
-  localStorage.setItem("token", data.token);
-  router.push({ name: "ChuckNorrisJokes" });
+  try {
+    const data = await login(username.value, password.value);
+    localStorage.setItem("token", data.token);
+    router.push({ name: "ChuckNorrisJokes" });
+  } catch (error) {
+    showSnackbar("there was a problem with your login");
+  }
 };
 
 const handleRegisterButton = async () => {
-  const data = await register(username.value, password.value);
-  localStorage.setItem("token", data.token);
-  router.push({ name: "ChuckNorrisJokes" });
+  try {
+    const data = await register(username.value, password.value);
+    localStorage.setItem("token", data.token);
+    router.push({ name: "ChuckNorrisJokes" });
+  } catch (error) {
+    showSnackbar("there was a problem with your register");
+  }
 };
 
 onMounted(() => {
