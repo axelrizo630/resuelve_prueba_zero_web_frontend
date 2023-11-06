@@ -34,7 +34,7 @@ onBeforeUnmount(() => {
 <template>
   <h1>Chuck Norris Jokes API</h1>
 
-  <h2 v-if="apiKey" class="text-wrap text-subtitle-2 text-md-h2">
+  <h2 v-if="apiKey" class="text-wrap text-subtitle-2 text-md-h5">
     Your API Key: {{ apiKey }}
   </h2>
   <h2 v-else>Something happened with your API Key</h2>
