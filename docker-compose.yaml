@@ -3,5 +3,7 @@ services:
   vue_app:
     container_name: resuelve_prueba_zero_vue_frontend
     build: .
+    environment:
+      VITE_BASE_URL: ${VITE_BASE_URL}
     ports:
       - "4000:4000"
